@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Midterm_Hawkins</title>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+  <style>
+    body { margin: 0; padding: 0; }
+    #map { height: 100vh; } /* Full height for the map */
+  </style>
+</head>
+<body>
+
+  
+<div id="map"></div>
+
+<script>
+
+var objs = [  
+{name:"Pioneer RV Park", lat:42.81493,lon:-108.7119},
+{name:"Grand Teton Park RV Resort", lat:43.83199,lon:-110.40172},
+{name:"Ashley National Forest Buckboard Crossing Campground", lat:41.248969,lon:-109.596964},
+{name:"Ashley National Forest Firehole Campground", lat:41.347141,lon:-109.447014},
+{name:"Auto-Inn Motel RV Park", lat:43.85115,lon:-104.2339},
+{name:"Bighorn National Forest Boulder Park Campground", lat:44.16527,lon:-107.25213},
+{name:"Bighorn National Forest Sitting Bull Campground", lat:44.19094,lon:-107.21097},
+{name:"BJ's Campground", lat:42.75399,lon:-104.4482},
+{name:"Black Hills National Forest Cook Lake Campground", lat:44.5948,lon:-104.40791},
+{name:"Bridge Bay Campground", lat:44.533756,lon:-110.43755},
+{name:"Bridger-Teton National Forest Allred Flat Campground", lat:42.48793,lon:-110.96179},
+{name:"Bridger-Teton National Forest Fremont Lake Campground", lat:42.9518,lon:-109.7888},
+{name:"Bridger-Teton National Forest Granite Creek Campground", lat:43.3593,lon:-110.44672},
+{name:"Bridger-Teton National Forest Hoback Campground", lat:43.28133,lon:-110.59377},
+{name:"Bridger-Teton National Forest Sacajawea Campground", lat:42.61844,lon:-110.53105},
+{name:"Canyon Village Campground", lat:44.73569,lon:-110.48929},
+{name:"Colter Bay Campground", lat:43.90565,lon:-110.64124},
+{name:"Deer Creek Village RV Campground", lat:42.866045,lon:-105.864518},
+{name:"Deer Haven RV Park", lat:41.460626,lon:-106.807211},
+{name:"Eagle RV Park", lat:43.6243,lon:-108.22089},
+{name:"Flagg Ranch Resort Campground Grand Teton/Yellowstone", lat:44.10508,lon:-110.66846},
+{name:"Flat Creek RV Park Cabins", lat:42.90991,lon:-110.99796},
+{name:"Fountain of Youth RV Park", lat:43.67381,lon:-108.20573},
+{name:"Glendo Lakeside RV Park", lat:42.51352,lon:-105.01295},
+{name:"Grand Teton NP Jenny Lake Campground", lat:43.752725,lon:-110.719046},
+{name:"Hawk Springs State Recreation Area", lat:41.711778,lon:-104.197111},
+{name:"Keyhole State Park Campground", lat:44.35579,lon:-104.750447},
+{name:"KOA Douglas Kampground", lat:42.764832,lon:-105.437675},
+{name:"KOA Dubois/Wind River", lat:43.53263,lon:-109.63583},
+{name:"KOA Rawlins", lat:41.78005,lon:-107.22967},
+{name:"KOA Rock Springs/Green River", lat:41.56668,lon:-109.29141},
+{name:"KOA Snake River Park", lat:43.34069,lon:-110.72346},
+{name:"Lazy Acres Campground  Motel", lat:41.21767,lon:-106.77743},
+{name:"Longhorn Ranch Motel RV Resort", lat:43.51494,lon:-109.59039},
+{name:"Lovell Camper Park City Park", lat:44.840174,lon:-108.393598},
+{name:"Madison Junction Campground", lat:44.64536,lon:-110.86121},
+{name:"Mountain View RV Park Campground", lat:44.417076,lon:-104.352367},
+{name:"WYO Campground", lat:41.15894,lon:-104.51587},
+{name:"Pony Soldier RV Park", lat:42.17792,lon:-104.4381},
+{name:"Willowbend Campground", lat:43.62835,lon:-109.85913},
+{name:"RV World Campground", lat:41.782927,lon:-107.272171},
+{name:"Sand Creek RV Park", lat:44.544739,lon:-104.09284},
+{name:"Shell Campground RV Park", lat:44.53456,lon:-107.78036},
+{name:"Shoshone National Forest Falls Campground", lat:43.708749,lon:-109.97153},
+{name:"Shoshone National Forest Fox Creek Campground", lat:44.974282,lon:-109.833391},
+{name:"Shoshone National Forest Newton Creek Campground", lat:44.453659,lon:-109.759435},
+{name:"Shoshone National Forest Wapiti Campground", lat:44.46457,lon:-109.624242},
+{name:"Terry Bison Ranch Resort", lat:41.00106,lon:-104.90578},
+{name:"Western Hills Campground LLC", lat:41.78506,lon:-107.26618},
+{name:"Worland RV Park Campground", lat:44.01702,lon:-107.93825},
+{name:"Yellowstone National Park Indian Creek Campground", lat:44.88119,lon:-110.73436},
+{name:"Yellowstone National Park Lewis Lake Campground", lat:44.28319,lon:-110.626767},
+{name:"Yellowstone National Park Mamouth Campground", lat:44.972937,lon:-110.693447},
+{name:"Yellowstone National Park Norris Campground", lat:44.738643,lon:-110.699306},
+{name:"Yellowstone National Park Pebble Creek Campground", lat:44.914578,lon:-110.113373},
+{name:"Yellowstone National Park Slough Creek Campground", lat:44.94361,lon:-110.30863},
+{name:"Yellowstone National Park Tower Fall Campground", lat:44.89189,lon:-110.3874},
+{name:"Grand Teton/Yellowstone Glassy Lake Campground", lat:44.10961,lon:-110.671406},
+{name:"A.B Camping", lat:41.10238,lon:-104.82173},
+{name:"Absaroka Bay RV Park", lat:44.51415,lon:-109.05029},
+{name:"Big Horn Mountains Campground", lat:44.338923,lon:-106.750766},
+{name:"Boulder lake campground", lat:42.85569,lon:-109.61799},
+{name:"Boysen State Park Campground", lat:43.394849,lon:-108.162687},
+{name:"Buffalo Bill State Park Campground", lat:44.503305,lon:-109.244631},
+{name:"Campbell's Green Oasis Campground", lat:44.5014,lon:-108.05503},
+{name:"Casper East RV Park  Campground", lat:42.8557,lon:-106.28877},
+{name:"Country Campin", lat:43.720763,lon:-108.157304},
+{name:"Dallas Dome Ranch", lat:42.730763,lon:-108.628182},
+{name:"Deer Park", lat:44.3542,lon:-106.66977},
+{name:"Fishing Bridge RV Park", lat:44.563126,lon:-110.370036},
+{name:"Foothills Motel Campground", lat:44.87762,lon:-107.26241},
+{name:"Fort Bridger RV Camp", lat:41.31612,lon:-110.38871},
+{name:"Fort Caspar Campground", lat:42.83844,lon:-106.37384},
+{name:"Gateway Motel Campground", lat:44.51616,lon:-109.09367},
+{name:"Grand Teton NP Lizard Creek Campground", lat:44.00677,lon:-110.6843},
+{name:"Grant Village Campground", lat:44.387007,lon:-110.563532},
+{name:"Green Creek Inn RV Park", lat:44.46235,lon:-109.49239},
+{name:"Greys River Cove RV Park", lat:43.16454,lon:-111.01707},
+{name:"Gros Ventre Campground", lat:43.62031,lon:-110.669532},
+{name:"Highline Trail RV Park", lat:42.742499,lon:-109.715165},
+{name:"Indian Campground", lat:44.35439,lon:-106.68862},
+{name:"Jackson Hole Campground", lat:43.520389,lon:-110.841709},
+{name:"Jolley Rogers RV Campground", lat:41.15521,lon:-104.73451},
+{name:"KCRV Park", lat:43.717886,lon:-106.645919},
+{name:"KOA Casper", lat:42.91355,lon:-106.3387},
+{name:"KOA Cheyenne", lat:41.13915,lon:-104.69852},
+{name:"KOA Cody", lat:44.51178,lon:-109.00821},
+{name:"KOA Devils Tower", lat:44.58884,lon:-104.69857},
+{name:"KOA Greybull", lat:44.492963,lon:-108.049736},
+{name:"KOA Laramie", lat:41.32432,lon:-105.61124},
+{name:"KOA Lyman", lat:41.34998,lon:-110.29894},
+{name:"KOA Sheridan Big Horn Mountain", lat:44.8366,lon:-106.9655},
+{name:"Lazy J Corral", lat:43.32488,lon:-110.73015},
+{name:"Lazy R Campground RV Park", lat:44.90817,lon:-107.16693},
+{name:"Maverick Mobile Home RV Park", lat:42.843088,lon:-108.725083},
+{name:"Mountain View CampGround Cafe", lat:42.94425,lon:-108.8033},
+{name:"Mountain View Motel and Campground", lat:44.348444,lon:-106.706879},
+{name:"Owl Creek Kampground", lat:43.10402,lon:-108.34924},
+{name:"Peter D's RV Park", lat:44.8095,lon:-106.94207},
+{name:"Phillips RV Park", lat:41.27095,lon:-110.94776},
+{name:"Pinedale Campground", lat:42.863319,lon:-109.871273},
+{name:"Ponderosa Campground", lat:44.51906,lon:-109.07324},
+{name:"Powder River Campground", lat:43.70726,lon:-106.6393},
+{name:"Prairie View Campground", lat:42.748049,lon:-104.487343},
+{name:"Restway Travel Park", lat:41.15667,lon:-104.73261},
+{name:"Rob Roost Park", lat:42.554881,lon:-110.109194},
+{name:"Twin Hollow Campground & Cabins", lat:37.620552,lon:-81.884031},
+{name:"Signal Mountain Camground", lat:43.8419,lon:-110.61077},
+{name:"Sleeping Bear RV Park Campground", lat:42.824518,lon:-108.718288},
+{name:"Star Valley Ranch Resort", lat:42.9679,lon:-110.97264},
+{name:"Ten Broek RV Park", lat:44.033825,lon:-107.451533},
+{name:"Tex's Travel Camp", lat:41.55504,lon:-109.51739},
+{name:"Virginian RV Park", lat:43.472613,lon:-110.779162},
+{name:"Twin Creeks Campground", lat:44.35397,lon:-106.6815},
+{name:"Twin Pines RV Park  Campground", lat:42.737393,lon:-108.64797},
+{name:"Wind River RV Park", lat:43.0271,lon:-108.3704},
+{name:"Wind River View Campground 1", lat:42.75898,lon:-109.733084},
+{name:"Highline Trail RV Park", lat:42.738569,lon:-109.71433},
+{name:"Wyoming Gardens Rv Park", lat:43.638736,lon:-108.215634},
+{name:"Yellowstone Valley Inn RV Park ***", lat:44.475046,lon:-109.411498},
+{name:"Hide-A-Way Mobile Village", lat:41.113176,lon:-104.801648},
+{name:"Greenway Trailer Park and Sales", lat:41.14277,lon:-104.7614},
+{name:"T Joe's RV Park", lat:41.157648,lon:-104.65951},
+{name:"Three Mile Campground Shoshone National Forest", lat:44.455821,lon:-109.728446},
+{name:"Shell Creek Campground Bighorn National Forest", lat:44.552052,lon:-107.518557},
+{name:"Wagon Wheel Motel", lat:41.31835,lon:-110.387539},
+{name:"Riverside RV and Mobilehome Park", lat:41.797525,lon:-110.53593},
+{name:"Foothills Mobile Home and RV Pk", lat:41.801764,lon:-110.536164},
+{name:"Woods Landing Resort", lat:41.110647,lon:-106.012486},
+{name:"Buffalo Bill State Park - North Fork Campground", lat:44.4862,lon:-109.3314},
+{name:"Fort Rendezvous Campground", lat:42.99641,lon:-108.383833},
+{name:"Bramble Motel and RV Park", lat:44.824511,lon:-106.95762},
+{name:"Rim Rock RV and Camp", lat:43.850919,lon:-104.231113},
+{name:"Bighorn Canyon NRA - Horseshoe Bend Campground", lat:44.96162,lon:-108.2655},
+{name:"Bow River Campground", lat:41.514229,lon:-106.371644},
+{name:"Devils Tower View", lat:44.563734,lon:-104.688456},
+{name:"Rangeland Court Motel and RV Park", lat:44.26444,lon:-104.950555},
+{name:"All Seasons RV Park", lat:44.266526,lon:-105.175359},
+{name:"High Plains Campground", lat:44.280107,lon:-105.449356},
+{name:"Crazy Woman Camp Ground", lat:44.292937,lon:-105.516437},
+{name:"Auto Inn Motel and Rv Park", lat:43.851164,lon:-104.234116},
+{name:"Green River Lake Campground", lat:43.315673,lon:-109.863098},
+{name:"Traveler's Court", lat:42.052218,lon:-104.183998},
+{name:"Ranger Creek Campground", lat:44.550407,lon:-107.746427},
+{name:"Cam-plex Multi event facilities", lat:44.27665,lon:-105.4359},
+{name:"Shoshone NF Crazy Creek Campground", lat:44.94225,lon:-109.7728},
+{name:"Shoshone NF Hunter Peak Campground", lat:44.88613,lon:-109.6554},
+{name:"Targhee NF Trail Creek Campground", lat:43.54134,lon:-111.0412},
+{name:"Shoshone NF Threemile Campground", lat:44.49646,lon:-109.9473},
+{name:"Canyon Village Campground", lat:44.73613,lon:-110.498423},
+{name:"Glendo SP Sandy Beach Campground", lat:42.521846,lon:-104.937104},
+{name:"Glendo SP Red Hills Campground", lat:42.511008,lon:-104.97455},
+{name:"Glendo SP Reno Cove Campground", lat:42.495868,lon:-104.973229},
+{name:"Glendo SP Whiskey Gultch Campground", lat:42.478254,lon:-105.001688},
+{name:"Glendo SP Two Moon Campground", lat:42.469291,lon:-104.959688},
+{name:"River's View RV Park", lat:44.515351,lon:-109.097075},
+{name:"Rivers Edge RV and Cabins Resort", lat:42.855603,lon:-106.213659},
+{name:"Bald Mountain Campground", lat:44.807929,lon:-107.859668},
+{name:"Larson Park Campground", lat:42.257389,lon:-104.742494},
+{name:"Yellowstone Campground", lat:44.562033,lon:-110.395325},
+{name:"Lake Yellowstone Hotel and Cabins Campground", lat:44.552349,lon:-110.402101},
+{name:"Connor Battlefield SHS", lat:44.902772,lon:-107.165703},
+{name:"Sibley Lake - USFS", lat:44.760822,lon:-107.444579},
+{name:"Prune Creek Campground", lat:44.769963,lon:-107.469174},
+{name:"North Tongue River Campground", lat:44.781086,lon:-107.534037},
+{name:"Porcupine Campground", lat:44.830495,lon:-107.859066},
+{name:"Five Springs Falls - BLM", lat:44.804242,lon:-107.97021},
+{name:"Homesteader Park - City", lat:44.756204,lon:-108.741681},
+{name:"Dead Indian Campground", lat:44.752789,lon:-109.419387},
+{name:"Shoshone National Forest Little Sunlight Campground", lat:44.718953,lon:-109.589491},
+{name:"Shoshone National Forest Double Cabin Campground", lat:43.80835,lon:-109.562712},
+{name:"Shoshone national Forest Brooks Lake Campground", lat:43.747785,lon:-110.005012},
+{name:"Oasis Motel and Rv Park", lat:44.159394,lon:-108.87371},
+
+]
+
+var wh = [
+{name:"Powder River 2 - North Fork Buffalo Creek Powder River 2 - North Fork Buffalo Creek; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Casper; Access type: Creek; River miles: 2.8; Drainage: Powder River; Access dates: 02/01 - 09/03; Fish species:; ? Brook Trout; Footnote 1: All vehicles must park in designated ?; parking areas only.; Footnote 2: Motorized vehicle access limited to ?; designated roads only. Designated roads are marked ?; with a white arrow. Fishing Area", lat:43.44755,lon:-107.195462},
+{name:"Cheyenne River 2 - Geier Reservoir Cheyenne River 2 - Geier Reservoir; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Casper; Access type: Pond; Size: 31.0 Acres; Drainage: Cheyenne River; Access dates: 01/01 - 12/31; Fish species:; ? Brown Trout; ? Channel Catfish; ? Crappie; ? Largemouth Bass; ? Yellow Perch; Footnote 1: All vehicles must park in designated ?; parking areas only. Fishing Area", lat:43.916824,lon:-104.365865},
+{name:"Cheyenne River 1 - Stockade Beaver Creek Cheyenne River 1 - Stockade Beaver Creek; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Casper; Access type: Creek; River miles: 1.1; Drainage: Cheyenne River; Access dates: 01/01 - 12/31; Fish species:; ? Brown Trout; Footnote 1: Parking along county road only. Fishing Area", lat:43.8882,lon:-104.098043},
+{name:"Belle Fourche River 4 - Beaver Creek Belle Fourche River 4 - Beaver Creek; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Casper; Access type: Creek; River miles: 1.0; Drainage: Belle Fourche River; Access dates: 1/1-6/14; 7/1 - 09/30; 11/01 - 12/31; Fish species:; ? Brook Trout; Footnote 1: All vehicles must park in designated ?; parking areas only. Fishing Area", lat:44.575735,lon:-104.408748},
+{name:"Belle Fourche River 1 - Medicine Lake Belle Fourche River 1 - Medicine Lake; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Casper; Access type: Lake; Size: 35.0 Acres; Drainage: Belle Fourche River; Access dates: 01/01 - 12/31; Fish species:; ? Brook Trout; ? Cutthrout Trout; ? Rainbow Trout; Footnote 1: No ice fishing is permitted.; Footnote 2: Vehicles must stay off dam. Fishing Area", lat:44.436449,lon:-104.314849},
+{name:"North Platte River 17 - Deer Creek/Texas Creek North Platte River 17 - Deer Creek/Texas Creek; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Casper; Access type: Creek; River miles: 9.7; Drainage: North Platte River; Access dates: 01/01 - 12/31; Fish species:; ? Brook Trout; ? Brown Trout; ? Rainbow Trout Fishing Area", lat:42.490888,lon:-106.044174},
+{name:"North Platte River 15 - Bates Creek North Platte River 15 - Bates Creek; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Casper; Access type: Creek; River miles: 2.3; Drainage: North Platte River; Access dates: 01/01 - 12/31; Fish species:; ? Brook Trout; Footnote 1: All vehicles must park in designated ?; parking areas only.; Footnote 2: NO ORVs. Fishing Area", lat:42.512412,lon:-106.224208},
+{name:"Big Horn River 2 - Alkali Creek Big Horn River 2 - Alkali Creek; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Cody; Access type: Creek; River; River miles: 1.3; Drainage: Big Horn River; Access dates: 01/01 - 12/31; Fish species:; ? Bear River Cutthroat; ? Brown Trout; ? Rainbow Trout Fishing Area", lat:44.711422,lon:-108.844838},
+{name:"Big Horn River 3 - Shoshone River Big Horn River 3 - Shoshone River; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Cody; Access type: River; River miles: 2.1; Drainage: Big Horn River; Access dates: 01/01 - 12/31; Fish species:; ? Bear River Cutthroat; ? Brown Trout; ? Rainbow Trout Fishing Area", lat:44.728599,lon:-108.660385},
+{name:"Big Horn River 5 - Shoshone River Big Horn River 5 - Shoshone River; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Cody; Access type: River; River miles: 2.1; Drainage: Big Horn River; Access dates: 01/01 - 12/31; Fish species:; ? Bear River Cutthroat; ? Brown Trout; ? Rainbow Trout Fishing Area", lat:44.736397,lon:-108.613671},
+{name:"Big Horn River 9 - Bighorn River Big Horn River 9 - Bighorn River; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Cody; Access type: River; River miles: 2.1; Drainage: Big Horn River; Access dates: 01/01 - 12/31; Fish species:; ? Channel Catfish; ? Sauger; ? Shovelnose Sturgeon; Footnote 1: Motorized vehicle access limited to ?; designated roads only. Designated roads are marked ?; with a white arrow. Fishing Area", lat:44.285058,lon:-107.97627},
+{name:"Big Horn River 10 - Bighorn River Big Horn River 10 - Bighorn River; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Cody; Access type: River; River miles: 0.1; Drainage: Big Horn River; Access dates: 01/01 - 12/31; Fish species:; ? Channel Catfish; ? Sauger; ? Shovelnose Sturgeon; Footnote 1: Motorized vehicle access limited to ?; designated roads only. Designated roads are marked ?; with a white arrow. Fishing Area", lat:44.278684,lon:-107.97055},
+{name:"Big Horn River 11 - Bighorn River Big Horn River 11 - Bighorn River; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Cody; Access type: River; River miles: 1.7; Drainage: Big Horn River; Access dates: 01/01 - 12/31; Fish species:; ? Channel Catfish; ? Sauger; ? Shovelnose Sturgeon; Footnote 1: Motorized vehicle access limited to ?; designated roads only. Designated roads are marked ?; with a white arrow. Fishing Area", lat:44.237844,lon:-107.947754},
+{name:"Big Horn River 12 - Bighorn River/Nowood River Big Horn River 12 - Bighorn River/Nowood River; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Cody; Access type: River; River miles: 6.73; Drainage: Big Horn River; Access dates: 01/01 - 12/31; Fish species:; ? Channel Catfish; ? Sauger; ? Shovelnose Sturgeon; Footnote 1: Motorized vehicle access limited to ?; designated roads only. Designated roads are marked ?; with a white arrow. Fishing Area", lat:44.263453,lon:-107.936934},
+{name:"Big Horn River 14 - Paint Rock Creek/Laddie Creek Big Horn River 14 - Paint Rock Creek/Laddie Creek; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Cody; Access type: Creek; River miles: 0.6; Drainage: Big Horn River; Access dates: 01/01 - 12/31; Fish species:; ? Brown Trout; ? Rainbow Trout; Footnote 1: All vehicles must park in designated ?; parking areas only.; Footnote 2: Motorized vehicle access limited to ?; designated roads only. Designated roads are marked ?; with a white arrow. Fishing Area", lat:44.24633,lon:-107.608098},
+{name:"Big Horn River 16 - Bighorn River Big Horn River 16 - Bighorn River; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Cody; Access type: River; River miles: 0.75; Drainage: Big Horn River; Access dates: 01/01 - 12/31; Fish species:; ? Channel Catfish; ? Sauger; ? Shovelnose Sturgeon; Footnote 1: All vehicles must park in designated ?; parking areas only.; Footnote 2: Motorized vehicle access limited to ?; designated roads only. Designated roads are marked ?; with a white arrow. Fishing Area", lat:44.192705,lon:-107.920322},
+{name:"Big Horn River 17 - Bighorn River Big Horn River 17 - Bighorn River; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Cody; Access type: River; River miles: 1.06; Size: 20.0 Acres; Drainage: Big Horn River; Access dates: 01/01 - 12/31; Fish species:; ? Channel Catfish; ? Sauger; ? Shovelnose Sturgeon; Footnote 1: All vehicles must park in designated ?; parking areas only.; Footnote 2: Motorized vehicle access limited to ?; designated roads only. Designated roads are marked ?; with a white arrow. Fishing Area", lat:44.099508,lon:-107.929403},
+{name:"Big Horn River 18 - Bighorn River Big Horn River 18 - Bighorn River; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Cody; Access type: River; River miles: 0.53; Drainage: Big Horn River; Access dates: 01/01 - 12/31; Fish species:; ? Channel Catfish; ? Rainbow Trout; ? Sauger; ? Shovelnose Sturgeon Fishing Area", lat:44.010681,lon:-107.979038},
+{name:"Big Horn River 19 - Bighorn River/Nowater Creek Big Horn River 19 - Bighorn River/Nowater Creek; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Cody; Access type: River; River miles: 0.26; Drainage: Big Horn River; Access dates: 01/01 - 12/31; Fish species:; ? Channel Catfish; ? Rainbow Trout; ? Sauger; ? Shovelnose Sturgeon Fishing Area", lat:43.972673,lon:-107.992649},
+{name:"Big Horn River 20 - Bighorn River Big Horn River 20 - Bighorn River; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Cody; Access type: River; River miles: 0.8; Drainage: Big Horn River; Access dates: 01/01 - 12/31; Fish species:; ? Channel Catfish; ? Sauger; ? Shovelnose Sturgeon; ? Walleye; Footnote 1: All vehicles must park in designated ?; parking areas only.; Footnote 2: Motorized vehicle access limited to ?; designated roads only. Designated roads are marked ?; with a white arrow. Fishing Area", lat:44.383284,lon:-108.029898},
+{name:"Big Horn River 22 - Bitter Creek Big Horn River 22 - Bitter Creek; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Cody; Access type: Creek; River miles: 1.37; Drainage: Big Horn River; Access dates: 01/01 - 12/31; Fish species:; ? Brown Trout; ? Rainbow Trout; Footnote 1: Parking along county road only. Fishing Area", lat:44.779732,lon:-108.697831},
+
+{name:"Big Horn River 23 - Bitter Creek Big Horn River 23 - Bitter Creek; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Cody; Access type: Creek; River miles: 0.5; Drainage: Big Horn River; Access dates: 01/01 - 12/31; Fish species:; ? Brown Trout; ? Rainbow Trout Fishing Area", lat:44.777699,lon:-108.664384},
+{name:"North Platte River 1 - Rock Creek North Platte River 1 - Rock Creek; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Lander; Access type: Creek; River miles: 0.6; Drainage: North Platte River; Access dates: 01/01 - 12/31; Fish species:; ? Brook Trout; ? Rainbow Trout; Footnote 1: Motorized vehicle access allowed on ?; established roads only. Fishing Area", lat:42.501289,lon:-108.749592},
+{name:"North Platte River 4 - Long Creek North Platte River 4 - Long Creek; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Lander; Access type: Creek; River miles: 2.5; Drainage: North Platte River; Access dates: 01/01 - 12/31; Fish species:; ? Brook Trout; ? Brown Trout; Footnote 1: Motorized vehicle access allowed on ?; established roads only. Fishing Area", lat:42.680011,lon:-107.950099},
+{name:"North Platte River 5 - Sweetwater River North Platte River 5 - Sweetwater River; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Lander; Access type: Creek; River miles: 4.5; Drainage: North Platte River; Access dates: 01/01 - 12/31; Fish species:; ? Brook Trout; ? Cutthroat Trout; ? Rainbow Trout; Footnote 1: Motorized vehicle access limited to ?; designated roads only. Designated roads are marked ?; with a white arrow. Fishing Area", lat:42.580004,lon:-108.012036},
+{name:"North Platte River 6 - Sweetwater River North Platte River 6 - Sweetwater River; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Lander; Access type: Creek; River miles: 1.2; Drainage: North Platte River; Access dates: 01/01 - 12/31; Fish species:; ? Brook Trout; ? Cutthroat Trout; ? Rainbow Trout; Footnote 1: Motorized vehicle access limited to ?; designated roads only. Designated roads are marked ?; with a white arrow. Fishing Area", lat:42.585247,lon:-107.971047},
+{name:"North Platte River 11 - Macintosh Pond North Platte River 11 - Macintosh Pond; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Lander; Access type: Reservoir; Size: 6.0 Acres; Drainage: North Platte River; Access dates: 01/01 - 12/31; Fish species:; ? Brook Trout; ? Fathead Minnow; ? Lake Chub; ? Largemouth Bass; ? Rainbow Trout; Footnote 1: All vehicles must park in designated ?; parking areas only.; Footnote 2: Motorized vehicle access limited to ?; designated roads only. Designated roads are marked ?; with a white arrow.; Footnote 3: No use of motor vehicles; motorized ?; watercraft; or horses permitted. Fishing Area", lat:42.356886,lon:-107.833266},
+{name:"Green River 1 - Blacks Fork River Green River 1 - Blacks Fork River; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Green-River; Access type: River; Size: 121.0 Acres; Drainage: Green River; Access dates: 01/01 - 12/31; Fish species:; ? Brown Trout; ? Rainbow Trout; ? Whitefish Fishing Area", lat:41.294144,lon:-110.392029},
+{name:"Little Snake River 2 - Savery Creek Little Snake River 2 - Savery Creek; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Green-River; Access type: Creek; Size: 1154.0 Acres; Drainage: Little Snake River; Access dates: 01/01 - 12/31; Fish species:; ? Brook Trout; ? Brown Trout; ? Cutthroat Trout; ? Rainbow Trout; ? Tiger Trout; ? Whitefish Fishing Area", lat:41.133716,lon:-107.357319},
+{name:"Little Snake River 3 - High Savery Reservoir Little Snake River 3 - High Savery Reservoir; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Green-River; Access type: Creek; Reservoir; Size: 3368.0 Acres; Drainage: Little Snake River; Access dates: 01/01 - 12/31; Fish species:; ? Brook Trout; ? Cutthroat Trout; ? Kokanee Salmon; ? Tiger Trout Fishing Area", lat:41.276616,lon:-107.284734},
+{name:"Bear River 1 - Thomas Fork Bear River 1 - Thomas Fork; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Green-River; Access type: Creek; Size: 159.0 Acres; Drainage: Bear River; Access dates: 01/01 - 12/31; Fish species:; ? Bonneville Cutthroat; ? Brown Trout Fishing Area", lat:42.40029,lon:-111.003676},
+{name:"North Platte River 20 - Little Medicine Bow River North Platte River 20 - Little Medicine Bow River; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Laramie; Access type: River; River miles: 5.5; Size: 1405.0 Acres; Drainage: North Platte River; Access dates: 01/01 - 12/31; Fish species:; ? Brook Trout; ? Brown Trout; ? Rainbow Trout Fishing Area", lat:42.369613,lon:-106.118201},
+{name:"North Platte River 24 - Sodergreen Lake North Platte River 24 - Sodergreen Lake; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Laramie; Access type: Lake; Size: 220.0 Acres; Drainage: North Platte River; Access dates: 01/01 - 12/31; Fish species:; ? Brown Trout; ? Rainbow Trout; Footnote 1: All vehicles must park in designated ?; parking areas only.; Footnote 2: State lands are enrolled in this ?; Walk-in Area. All access restrictions apply. Fishing Area", lat:41.161075,lon:-105.933137},
+{name:"South Platte River 2 - Johnson Creek South Platte River 2 - Johnson Creek; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Laramie; Access type: Creek; Reservoir; River miles: 0.5; Size: 308.0 Acres; Drainage: South Platte River; Access dates: 01/01 - 12/31; Fish species:; ? Brook Trout; Footnote 1: State lands are enrolled in this ?; Walk-in Area. All access restrictions apply. Fishing Area", lat:41.053131,lon:-105.410509},
+{name:"North Platte River 18 - Medicine Bow River North Platte River 18 - Medicine Bow River; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Laramie; Access type: River; River miles: 2.4; Size: 195.0 Acres; Drainage: North Platte River; Access dates: 01/01 - 12/31; Fish species:; ? Brook Trout; ? Brown Trout; ? Rainbow Trout; Footnote 1: All vehicles must park in designated ?; parking areas only.; Footnote 2: Motorized vehicle access limited to ?; designated roads only. Designated roads are marked ?; with a white arrow. Fishing Area", lat:41.600086,lon:-106.416852},
+{name:"North Platte River 23 - Duck Creek North Platte River 23 - Duck Creek; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Laramie; Access type: Creek; Reservoir; River miles: 3.5; Size: 4376.0 Acres; Drainage: North Platte River; Access dates: 01/01 - 12/31; Fish species:; ? Brook Trout; ? Brown Trout; ? Rainbow Trout; Footnote 1: Motorized vehicle access limited to ?; designated roads only. Designated roads are marked ?; with a white arrow.; Footnote 2: State lands are enrolled in this ?; Walk-in Area. All access restrictions apply. Fishing Area", lat:42.006858,lon:-105.574338},
+{name:"South Platte River 1 - Crow Creek South Platte River 1 - Crow Creek; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Laramie; Access type: Creek; River miles: 0.9; Size: 94.0 Acres; Drainage: South Platte River; Access dates: 01/01 - 12/31; Fish species:; ? Brook Trout; ? Brown Trout; ? Rainbow Trout Fishing Area", lat:41.167094,lon:-105.214633},
+{name:"North Platte River 14 - North Platte River North Platte River 14 - North Platte River; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Laramie; Access type: River; River miles: 7.0; Size: 1651.0 Acres; Drainage: North Platte River; Access dates: 01/01 - 12/31; Fish species:; ? Brown Trout; ? Rainbow Trout; Footnote 1: All vehicles must park in designated ?; parking areas only.; Footnote 2: Stay off railroad tracks & rights ?; of ways. Fishing Area", lat:42.336816,lon:-104.865903},
+{name:"Powder River 12 - Powder River Powder River 12 - Powder River; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Sheridan; Access type: Creek; River miles: .2; Size: 7.0 Acres; Drainage: Powder River; Access dates: 01/01 - 12/31; Fish species:; ? Brown Trout; ? Catfish; ? Rainbow Trout; Footnote 1: All vehicles must park in designated ?; parking areas only. Fishing Area", lat:44.216179,lon:-106.154819},
+{name:"Powder River 11 - Rock Creek Powder River 11 - Rock Creek; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Sheridan; Access type: Creek; River miles: 1.03; Drainage: Powder River; Access dates: 01/01 - 12/31; Fish species:; ? Brown Trout; ? Rainbow Trout; Footnote 1: All vehicles must park in designated ?; parking areas only.; Footnote 2: State lands are enrolled in this ?; Walk-in Area. All access restrictions apply. Fishing Area", lat:44.429198,lon:-106.79318},
+{name:"Powder River 4 - Clear Creek Powder River 4 - Clear Creek; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Sheridan; Access type: Creek; River miles: .34; Size: 23.0 Acres; Drainage: Powder River; Access dates: 01/01 - 12/31; Fish species:; ? Brown Trout; ? Smallmouth Bass; Footnote 1: All vehicles must park in designated ?; parking areas only. Fishing Area", lat:44.620275,lon:-106.399265},
+{name:"Powder River 3 - Piney Creek Powder River 3 - Piney Creek; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Sheridan; Access type: Creek; River miles: .16; Drainage: Powder River; Access dates: 01/01 - 12/31; Fish species:; ? Brook Trout; ? Brown Trout; ? Rainbow Trout Fishing Area", lat:44.537955,lon:-106.824242},
+
+{name:"Powder River 1 - J Bar U Reservoir/Texaco Reservoir Powder River 1 - J Bar U Reservoir/Texaco Reservoir; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Sheridan; Access type: Reservoir; Size: 28.0 Acres; Drainage: Powder River; Access dates: 01/01 - 12/31; Fish species:; ? Black Bullhead; ? Green Sunfish; ? Largemouth Bass; Footnote 1: All vehicles must park in designated ?; parking areas only. Fishing Area", lat:43.593451,lon:-106.514668},
+{name:"Tongue River 2 - Big Horn Reservoir Tongue River 2 - Big Horn Reservoir; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Sheridan; Access type: Reservoir; Size: 485.0 Acres; Drainage: Tongue River; Access dates: 01/01 - 12/31; Fish species:; ? Brook Trout; ? Brown Trout; ? Rainbow Trout; ? Splake; ? Tiger Muskie; ? Yellowstone Cutthroat; Footnote 1: All vehicles must park in designated ?; parking areas only. Fishing Area", lat:44.529634,lon:-107.207621},
+{name:"Snake River 1 - Willow Creek Snake River 1 - Willow Creek; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Jackson; Access type: Creek; Size: 17.0 Acres; Drainage: Snake River; Access dates: 01/01 - 12/31; Fish species:; ? Snake River Cutthroat Trout Fishing Area", lat:42.852137,lon:-110.969474},
+{name:"Bear River 2 - Bear River Bear River 2 - Bear River; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Green-River; Access type: Stream; Size: 11.0 Acres; Drainage: Bear River; Access dates: 07/01 - 6/30; Fish species:; ? Bear River Cutthroat; ? Snake River Cutthroat; ? Whitefish Fishing Area", lat:41.284721,lon:-110.985598},
+{name:"Big Horn River 27 - Nowood River Big Horn River 27 - Nowood River; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Cody; Access type: Stream; River miles: 2; Drainage: Big Horn River; Access dates: 01/01 - 12/31; Fish species:; ? Channel Catfish; ? Sauger; Footnote 1: Motorized vehicle access limited to ?; designated roads only. Designated roads are marked ?; with a white arrow.; Footnote 2: Travel restricted to highways and ?; county roads when conditions are wet or muddy. Fishing Area", lat:44.219505,lon:-107.740533},
+{name:"North Platte River 13 - University Pond North Platte River 13 - University Pond; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Laramie; Access type: Lake; Size: 2.0 Acres; Drainage: North Platte River; Access dates: 01/01 - 12/31; Fish species:; ? Brook Trout; ? Rainbow Trout; Footnote 1: All vehicles must park in designated ?; parking areas only. Fishing Area", lat:42.23943,lon:-105.356285},
+{name:"North Platte River 19 - Laramie River North Platte River 19 - Laramie River; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Laramie; Access type: Stream; River miles: 0.5; Size: 9.0 Acres; Drainage: North Platte River; Access dates: 01/01 - 12/31; Fish species:; ? Brown Trout; ? Rainbow Trout; Footnote 1: All vehicles must park in designated ?; parking areas only. Fishing Area", lat:41.263338,lon:-105.657722},
+{name:"Cheyenne River 4 - Lower Willow Creek Reservoir Cheyenne River 4 - Lower Willow Creek Reservoir; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Casper; Access type: Lake; Size: 25.0 Acres; Drainage: Cheyenne River; Access dates: 01/01 - 12/31; Fish species:; ? Rainbow Trout Fishing Area", lat:44.134925,lon:-104.603795},
+{name:"North Platte River 3 - North Platte River North Platte River 3 - North Platte River; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Casper; Access type: Stream; River miles: 0.2; Drainage: North Platte River; Access dates: 01/01 - 12/31; Fish species:; ? Brown trout; ? Cutthroat trout; ? Rainbow trout Fishing Area", lat:42.552581,lon:-106.715061},
+{name:"North Platte River 25 - North Platte River North Platte River 25 - North Platte River; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Casper; Access type: Stream; River miles: 2.6; Drainage: North Platte River; Access dates: 01/01 - 12/31; Fish species:; ? Brown Trout; ? Cutthroat Trout; ? Rainbow trout; Footnote 1: All vehicles must park in designated ?; parking areas only. Fishing Area", lat:42.839753,lon:-105.789487},
+{name:"Green River 3 - Green River Green River 3 - Green River; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Green-River; Access type: Stream; River miles: 12; Drainage: Green River; Access dates: 07/01 - 6/30; Fish species:; ? Rainbow trout Fishing Area", lat:41.623552,lon:-109.640706},
+{name:"North Platte River 2 - Willow Creek North Platte River 2 - Willow Creek; Fishing Area; Wyoming USA; Site's information last updated on: Aug 04; 2024; Regional Office: Lander; Access type: Stream; River miles: 1; Size: 639.0 Acres; Drainage: North Platte River; Access dates: 01/01 - 12/31; Fish species:; ? Add Later Fishing Area", lat:42.456695,lon:-108.734089},
+
+]
+
+</script>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+  // Initialize the map
+  const map = L.map('map').setView([42, -106], 13);
+  // Set initial position and zoom level
+
+  // Add OpenStreetMap tile layer
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map);
+
+  // Add a marker
+  const marker = L.marker([42, -106]).addTo(map);
+  marker.bindPopup('<b>Hello!</b><br>Wyoming.').openPopup();
+
+  const marker2 = L.marker([42.8487, -106.2981]).addTo(map);
+  marker2.bindPopup('<b>Hello!</b><br>Wyoming.').openPopup();
+</script>
+
+</body>
+</html>
