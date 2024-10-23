@@ -17,6 +17,10 @@
   
 <div id="map"></div>
 
+<div id="floating-panel">
+  <button id="toggle-heatmap">Dataset 1</button>
+  <button id="toggle-heatmap2">Dataset 2</button>
+
 <script>
 
 var objs = [  
@@ -262,7 +266,7 @@ var wh = [
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script>
   // Initialize the map
-  const map = L.map('map').setView([42, -106], 13);
+  const map = L.map('map').setView([42.99, -107], 7.45);
   // Set initial position and zoom level
 
   // Add OpenStreetMap tile layer
@@ -272,10 +276,10 @@ var wh = [
   }).addTo(map);
 
   // Add a marker
-  const marker = L.marker([42, -106]).addTo(map);
+  const marker = L.marker([44.56, -107.23]).addTo(map);
   marker.bindPopup('<b>Hello!</b><br>Wyoming.').openPopup();
 
-  const marker2 = L.marker([42.8487, -106.2981]).addTo(map);
+  const marker2 = L.marker([42.8487, -109.2981]).addTo(map);
   marker2.bindPopup('<b>Hello!</b><br>Wyoming.').openPopup();
 </script>
 
